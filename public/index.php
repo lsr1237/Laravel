@@ -6,7 +6,10 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
+/**
+ * 引入公共方法
+ */
+//require __DIR__.'/../app/Librarys/Functions/helpers.php';     //太不优雅了
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader

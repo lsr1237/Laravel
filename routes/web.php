@@ -29,4 +29,6 @@ Route::group(['namespace'=>'Index', 'prefix'=>'Index'],function(){
         Route::get('test', 'IndexController@test');
     });
 });
+Route::get('Index/Index/test_middleware', 'Index\IndexController@test_middleware')->middleware('verification');
+Route::get('Index/Index/login', 'Index\IndexController@login');
 
