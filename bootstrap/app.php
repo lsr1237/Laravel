@@ -10,7 +10,9 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-
+/**
+ * 创建服务器容器
+ */
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
@@ -25,6 +27,9 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
+/**
+ *  singleton()单独绑定类，第二个实体类可以为空，如果第二个参数不为空，则正常进行绑定
+ */
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,

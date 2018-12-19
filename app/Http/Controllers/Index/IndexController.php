@@ -12,30 +12,65 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Http\Logic\Logic;
 
 class IndexController extends Controller
 {
+    public function test_logic111(){
+        $logMol = new Logic('file');
+        $logMol->type = 'redis';
+        $logMol->log('这是一条测试');
+    }
+    public function test_logic1(Logic $logic){
+        $logic->log('这是另一条测试数据');
+        $logic->type = 'redis';
+        $logic->log('这是另二条测试数据');
+    }
+
+    public function test_logic(Logic $logic){
+//        $logic->type = 'redis';
+        $logic->log('这是另三条测试数据');
+    }
+
     public function test_middleware(){
         echo '登录成功';
         $assign = [];
 //        return view('index.index.head',$assign);
     }
     public function login(){
-        echo '请登录';
+        //登录页面
+//        echo app_path().'<br>';
+//        echo base_path().'<br>';
+//        echo $path = base_path('vendor/bin');
+        $assign = [
+            'name'=>'lsr',
+        ];
+        return view('index.index.login',$assign);
+    }
+    public function login_in(Request $request){
+        echo $request->method();
+        if($request->isMethod('post')) {
+            $name = $request->username;
+            $password =$request->password;
+            echo '用户名：'.$name;
+            echo '密码：'.$password;
+            $password = DB::table('users')->select()->where('name','=',$name)->first();
+            if(!empty($password->password)){
+                echo '数据库密码：'.$password->password;
+                if(Hash::check($request->password,$password->password)){
+                    return redirect('Index/Index/index');
+                    if(Hash::needsrehash($password->password)){
+                        //工作因子改变
+                        echo '请重新加密';
+                    }
+                }
+            }
+            return redirect('Index/Index/login');
+        }
     }
 
-    public function index($id, Request $request){
-        $test_str = 'test laravel id = '.$id.'~name:'.$request->input('name');
-//        echo $test_str;
-        $assign = [
-            'name' => 'lsr',
-            'age' => 18,
-            'true'=>true,
-            'false'=>false,
-            'null'=>null
-        ];
-        p($assign);
-        return view('Index.Index.index',$assign);
+    public function index(){
+        return view('Index.Index.index');
     }
 
     /**

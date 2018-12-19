@@ -25,10 +25,15 @@ Route::get('/', function () {
 // group and prefix 使得路由更具层次
 Route::group(['namespace'=>'Index', 'prefix'=>'Index'],function(){
     Route::group(['prefix'=>'Index'], function(){
-        Route::get('index/{id}', 'IndexController@index');
+        Route::get('index', 'IndexController@index');
         Route::get('test', 'IndexController@test');
+    });
+    Route::group(['prefix'=>'Redis'], function(){
+        Route::get('test_redis','RedisController@test_redis');
     });
 });
 Route::get('Index/Index/test_middleware', 'Index\IndexController@test_middleware')->middleware('verification');
 Route::get('Index/Index/login', 'Index\IndexController@login');
+Route::get('Index/Index/test_logic', 'Index\IndexController@test_logic');
+Route::post('Index/Index/login_in', 'Index\IndexController@login_in');
 

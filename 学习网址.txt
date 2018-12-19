@@ -3,3 +3,4 @@
 3、Laravel 学院 :  https://laravelacademy.org
 4、laravel 速查表 : https://cs.laravel-china.org
 5、Laravel 博客项目源码 : https://github.com/baijunyao/laravel-bjyblog
+6、Laravel 服务容器、服务提供者、服务、IOC、依赖注入讲解：https://laravel-china.org/articles/789/laravel-learning-notes-the-magic-of-the-service-container

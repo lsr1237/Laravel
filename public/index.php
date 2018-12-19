@@ -35,7 +35,8 @@ require __DIR__.'/../bootstrap/autoload.php';
 | the responses back to the browser and delight our users.
 |
 */
-
+//$app 就是一个服务容器  将返回结果传递到变量$app中
+//检索应用程序实例
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
@@ -49,9 +50,9 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
-
+//获取实例
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-
+//调用handle方法来处理用户的请求
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
