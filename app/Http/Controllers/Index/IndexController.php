@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Logic\Logic;
+use App\Http\Upload\Upload;
 
 class IndexController extends Controller
 {
@@ -27,8 +28,9 @@ class IndexController extends Controller
         $logic->log('这是另二条测试数据');
     }
 
-    public function test_logic(Logic $logic){
+    public function test_logic(Logic $logic,Upload $upload){
 //        $logic->type = 'redis';
+        $upload->upload_img();
         $logic->log('这是另三条测试数据');
     }
 
