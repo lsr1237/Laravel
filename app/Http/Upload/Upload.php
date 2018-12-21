@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 class Upload
 {
     /**
-     *  上传图片
+     *  上传文件
      */
-    public function upload_img($base64_img){
+    public function upload($file){
         //保存地址
         //文件名
         /**
@@ -24,13 +24,16 @@ class Upload
          * 校验文件大小
          */
         //判断保存路径是否存在
-        echo '这是img';
+        //获取文件相关信息
+        $originalName = $file->getClientOriginalName();   // 文件原名
+        $ext = $file->getClientOriginalExtension();     //文件扩展名
+        $realPath = $file->getRealPath();       //临时文件的绝对路径
+        $type = $file->getClientMimeType();
+
+        //生成文件名
+        $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
+        //保存文件
+        $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
     }
 
-    /**
-     * 上传视频
-     */
-    public function upload_video(){
-
-    }
 }

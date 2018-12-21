@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Logic\Logic;
 use App\Http\Upload\Upload;
+use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
 {
@@ -41,9 +43,6 @@ class IndexController extends Controller
     }
     public function login(){
         //登录页面
-//        echo app_path().'<br>';
-//        echo base_path().'<br>';
-//        echo $path = base_path('vendor/bin');
         $assign = [
             'name'=>'lsr',
         ];
@@ -69,6 +68,46 @@ class IndexController extends Controller
             }
             return redirect('Index/Index/login');
         }
+    }
+
+    public function welcome(){
+        return view('Index.Index.welcome');
+    }
+    public function upload(Request $request, Storage $storage){
+        if($request->isMethod('post'))
+        {
+            $name = $request->input('name');
+            if(empty($request->error) && $request->hasFile($name)){
+                $file = $request->file($name);
+                //判断文件是否上传成功
+                if($file->isValid()){
+                    //获取文件相关信息
+//                    $originalName = $file->getClientOriginalName();   // 文件原名
+//                    $type = $file->getClientMimeType();
+                    $realPath = $file->getRealPath();       //临时文件的绝对路径
+
+                    //生成文件名
+                    $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$request->ext;
+                    //保存文件
+                    $bool = Storage::disk(config('uploadConfig.save_path.'.$request->input('name')))->put($filename, file_get_contents($realPath));
+                    if($bool){
+                        $msg = [
+                            'code'=>1,
+                            'status'=>'success',
+                            'msg'=>'文件上传成功！',
+                        ];
+                    }
+                }
+            }else{
+                $msg = [
+                    'code'=>0,
+                    'status'=>'error',
+                    'msg'=>'文件格式错误！'
+                ];
+            }
+
+        }
+        return json_encode($msg);
     }
 
     public function index(){

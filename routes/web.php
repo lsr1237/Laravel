@@ -27,6 +27,8 @@ Route::group(['namespace'=>'Index', 'prefix'=>'Index'],function(){
     Route::group(['prefix'=>'Index'], function(){
         Route::get('index', 'IndexController@index');
         Route::get('test', 'IndexController@test');
+        Route::get('welcome','IndexController@welcome');
+        Route::post('upload','IndexController@upload')->middleware('uploads');
     });
     Route::group(['prefix'=>'Redis'], function(){
         Route::get('test_redis','RedisController@test_redis');

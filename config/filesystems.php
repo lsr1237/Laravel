@@ -54,6 +54,28 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        //新建一个新的目录来存储上传的文件
+        'file_uploads'=>[
+            'driver'=>'local',
+            //文件上传到storage_path('app/uploads'),
+            'root'=>storage_path('app/uploads/file'),
+            //文件上传到public/uploads目录 如果要使浏览器能够直接访问 设置到Public 目录
+            // 'root'=>public_path('uploads);
+        ],
+        'img_uploads'=>[
+            'driver'=>'local',
+            //文件上传到storage_path('app/uploads'),
+            'root'=>storage_path('app/uploads/img'),
+            //文件上传到public/uploads目录 如果要使浏览器能够直接访问 设置到Public 目录
+            // 'root'=>public_path('uploads);
+        ],
+        'video_uploads'=>[
+            'driver'=>'local',
+            //文件上传到storage_path('app/uploads'),
+            'root'=>storage_path('app/uploads/video'),
+            //文件上传到public/uploads目录 如果要使浏览器能够直接访问 设置到Public 目录
+            // 'root'=>public_path('uploads);
+        ],
 
         's3' => [
             'driver' => 's3',

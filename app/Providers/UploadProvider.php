@@ -24,6 +24,7 @@ class UploadProvider extends ServiceProvider
      */
     public function register()
     {
+
         //bind 返回类的实例
 //        $this->app->bind(Logic::class, function($app){
 //            return new Logic(config('logconfig.logDriver'));
