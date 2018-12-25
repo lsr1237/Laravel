@@ -36,6 +36,5 @@ Route::group(['namespace'=>'Index', 'prefix'=>'Index'],function(){
 });
 Route::get('Index/Index/test_middleware', 'Index\IndexController@test_middleware')->middleware('verification');
 Route::get('Index/Index/login', 'Index\IndexController@login');
-Route::get('Index/Index/test_logic', 'Index\IndexController@test_logic');
 Route::post('Index/Index/login_in', 'Index\IndexController@login_in');
 

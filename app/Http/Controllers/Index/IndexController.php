@@ -12,29 +12,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use App\Http\Logic\Logic;
 use App\Http\Upload\Upload;
 use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
 {
-    public function test_logic111(){
-        $logMol = new Logic('file');
-        $logMol->type = 'redis';
-        $logMol->log('这是一条测试');
-    }
-    public function test_logic1(Logic $logic){
-        $logic->log('这是另一条测试数据');
-        $logic->type = 'redis';
-        $logic->log('这是另二条测试数据');
-    }
-
-    public function test_logic(Logic $logic,Upload $upload){
-//        $logic->type = 'redis';
-        $upload->upload_img();
-        $logic->log('这是另三条测试数据');
-    }
 
     public function test_middleware(){
         echo '登录成功';
@@ -77,35 +60,53 @@ class IndexController extends Controller
         if($request->isMethod('post'))
         {
             $name = $request->input('name');
-            if(empty($request->error) && $request->hasFile($name)){
+            if($request->middileware_msg['code'] == 1){
                 $file = $request->file($name);
-                //判断文件是否上传成功
-                if($file->isValid()){
-                    //获取文件相关信息
+                //获取文件相关信息
 //                    $originalName = $file->getClientOriginalName();   // 文件原名
 //                    $type = $file->getClientMimeType();
-                    $realPath = $file->getRealPath();       //临时文件的绝对路径
-
-                    //生成文件名
-                    $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$request->ext;
-                    //保存文件
-                    $bool = Storage::disk(config('uploadConfig.save_path.'.$request->input('name')))->put($filename, file_get_contents($realPath));
-                    if($bool){
-                        $msg = [
-                            'code'=>1,
-                            'status'=>'success',
-                            'msg'=>'文件上传成功！',
-                        ];
-                    }
+                $ext = $file->getClientOriginalExtension();        //获取文件的拓展名
+                $realPath = $file->getRealPath();       //临时文件的绝对路径
+                //生成文件名
+                $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
+                //保存文件
+                $bool = Storage::disk(config('uploadConfig.save_path.'.$name))->put($filename, file_get_contents($realPath));
+                if($bool){
+                    //将上传记录存储到数据库中
+                    //上传文件类型
+                    $type_array = [
+                        'file'=>1,
+                        'image'=>2,
+                        'video'=>3
+                    ];
+                    $save_data = [
+                        [
+                            'user_id'=>'1',
+                            'file_path'=>"/storage/app/uploads/".$name.'/'.$filename,
+                            'file_type'=>$type_array[$name],
+                            'upload_time'=>date('Y-m-d H:i:s'),
+                        ],
+                    ];
+                    DB::table('upload_file')->insert($save_data);
+                    $msg = [
+                        'code'=>1,
+                        'msg'=>'文件上传成功！',
+                        'size'=>$file->getClientSize(),
+                    ];
+                }else{
+                    $msg = [
+                        'code'=>0,
+                        'msg'=>'文件上传失败！',
+                    ];
                 }
             }else{
-                $msg = [
-                    'code'=>0,
-                    'status'=>'error',
-                    'msg'=>'文件格式错误！'
-                ];
+                $msg = $request->middileware_msg;
             }
-
+        }else{
+            $msg = [
+                'code'=>0,
+                'msg'=>'非法操作'
+            ];
         }
         return json_encode($msg);
     }

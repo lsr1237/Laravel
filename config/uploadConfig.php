@@ -11,15 +11,15 @@
  */
 return [
     'file'=>[
-        'size'=>'',
-        'ext'=>['txt','mp4']
+        'size'=>1000000,
+        'ext'=>['txt','mp4','jpg']
     ],
     'img'=>[
-        'size'=>'',
+        'size'=>1000000,
         'ext'=>['img','png','jpeg']
     ],
     'video'=>[
-        'size'=>'',
+        'size'=>1000000,
         'ext'=>'mp4',
     ],
     'save_path'=>[

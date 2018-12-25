@@ -36,6 +36,11 @@
             <button class="layui-btn" id="video" name="video">上传视频</button>
     </div>
 </div>
+<div class="x-body">
+    <div class="layui-row">
+            <img src="/storage/app/uploads/file/2018-12-25-08-17-08-5c21e7848ded4.jpg">
+    </div>
+</div>
 <script>
     layui.use('upload', function(){
         var upload = layui.upload;
@@ -47,10 +52,11 @@
             ,data:{'name':'file'}
             ,done: function(res, index, upload){
                 console.log(res);
+                console.log(index);
+                console.log(upload);
+                layer.msg(res.msg);
                 if(res.code == 1){
-                    layer.msg(res.msg);
                 }else{
-                    layer.msg(res.msg);
                 }
                 //上传完毕回调
             }
