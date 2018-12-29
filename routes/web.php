@@ -25,13 +25,25 @@ Route::get('/', function () {
 // group and prefix 使得路由更具层次
 Route::group(['namespace'=>'Index', 'prefix'=>'Index'],function(){
     Route::group(['prefix'=>'Index'], function(){
-        Route::get('index', 'IndexController@index');
+        Route::get('index', 'IndexController@index')->middleware('login');
         Route::get('test', 'IndexController@test');
         Route::get('welcome','IndexController@welcome');
         Route::post('upload','IndexController@upload')->middleware('uploads');
     });
     Route::group(['prefix'=>'Redis'], function(){
         Route::get('test_redis','RedisController@test_redis');
+    });
+});
+Route::group(['namespace'=>'Client','prefix'=>'Client'],function(){
+    Route::group(['prefix'=>'Client'],function(){
+       Route::post('bind','ClientController@bind_client_id');
+       Route::post('unbind','ClientController@unbind_client_id');
+    });
+});
+Route::group(['namespace'=>'Char','prefix'=>'Char'],function(){
+    Route::group(['prefix'=>'Char'], function(){
+        Route::get('char_window','CharController@char_window');
+        Route::post('send_message','CharController@send_message');
     });
 });
 Route::get('Index/Index/test_middleware', 'Index\IndexController@test_middleware')->middleware('verification');

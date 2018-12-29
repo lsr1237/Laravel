@@ -54,69 +54,15 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6b8;</i>
-                    <cite>会员管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="member-list.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表</cite>
-
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="member-del.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员删除</cite>
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="iconfont">&#xe70b;</i>
-                            <cite>会员管理</cite>
-                            <i class="iconfont nav_right">&#xe697;</i>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a _href="xxx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员列表</cite>
-
-                                </a>
-                            </li >
-                            <li>
-                                <a _href="xx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员删除</cite>
-
-                                </a>
-                            </li>
-                            <li>
-                                <a _href="xx.html">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>等级管理</cite>
-
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <cite>即时聊天</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="/Char/Char/char_window">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>聊天页面</cite>
                         </a>
                     </li >
                 </ul>
@@ -282,15 +228,7 @@
     <div class="copyright">Copyright ©2017 x-admin v2.3 All Rights Reserved</div>
 </div>
 <!-- 底部结束 -->
-<script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+
+
 </body>
 </html>

@@ -39,6 +39,7 @@ require __DIR__.'/../bootstrap/autoload.php';
 //检索应用程序实例
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+
 /*
 |--------------------------------------------------------------------------
 | Run The Application

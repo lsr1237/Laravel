@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 class IndexController extends Controller
 {
 
+
     public function test_middleware(){
         echo '登录成功';
         $assign = [];
@@ -42,6 +43,8 @@ class IndexController extends Controller
             if(!empty($password->password)){
                 echo '数据库密码：'.$password->password;
                 if(Hash::check($request->password,$password->password)){
+                    //存入session
+                    session(['name'=>$name]);
                     return redirect('Index/Index/index');
                     if(Hash::needsrehash($password->password)){
                         //工作因子改变
@@ -122,25 +125,35 @@ class IndexController extends Controller
      */
     public function test(Request $request){
         if($request->input('dotype') == 'insert'){
+            //造个假数据
+            for($i=0;$i<100;$i++){
+                $save_data = [
+                    'name'=>'lsr'.$i,
+                    'email'=>$i.'@qq.com',
+                    'password'=>Hash::make('123456'),
+                ];
+                DB::table('users')->insert($save_data);
+            }
+            echo '好了';
             //插入数据库
-            $insert_data = [
-                [
-                    'name'=>'lsr',
-                    'email'=>'1@qq,com',
-                    'password'=>md5('123456')
-                ],
-                [
-                    'name'=>'xxy',
-                    'email'=>'2@qq.com',
-                    'password'=>Hash::make('123456'),
-                ],
-                [
-                    'name'=>'dsb',
-                    'email'=>'3@qq.com',
-                    'password'=>Hash::make('123456'),
-                ]
-            ];
-            echo DB::table('users')->insert($insert_data);
+//            $insert_data = [
+//                [
+//                    'name'=>'lsr',
+//                    'email'=>'1@qq,com',
+//                    'password'=>md5('123456')
+//                ],
+//                [
+//                    'name'=>'xxy',
+//                    'email'=>'2@qq.com',
+//                    'password'=>Hash::make('123456'),
+//                ],
+//                [
+//                    'name'=>'dsb',
+//                    'email'=>'3@qq.com',
+//                    'password'=>Hash::make('123456'),
+//                ]
+//            ];
+//            echo DB::table('users')->insert($insert_data);
         }elseif($request->input('dotype') == 'update'){
             //更新操作
             DB::table('users')->where('id',1)->update(['password'=>md5('123456')]);
