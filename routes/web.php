@@ -46,7 +46,13 @@ Route::group(['namespace'=>'Char','prefix'=>'Char'],function(){
         Route::post('send_message','CharController@send_message');
     });
 });
+//Route::group(['namespace'=>'Boke','prefix'=>'Boke'],function(){
+//    Route::group(['prefix'=>'Boke'],function(){
+//        Route::get('index','BokeController@index');
+//    });
+//});
 Route::get('Index/Index/test_middleware', 'Index\IndexController@test_middleware')->middleware('verification');
 Route::get('Index/Index/login', 'Index\IndexController@login');
+Route::get('boke', 'Boke\BokeController@index');
 Route::post('Index/Index/login_in', 'Index\IndexController@login_in');
 
