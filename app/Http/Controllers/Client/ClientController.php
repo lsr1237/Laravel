@@ -58,12 +58,13 @@ class ClientController extends Controller
             //将name从在线集合中去除
             Redis::srem('online_set',$name);
             $count = Redis::scard('online_set');
-            $number = Redis::smembers('online_set');  $msg = [
-            'code'=>1,
-            'client_id'=>$client_id,
-            'name'=>$name,
-            'count'=>$count,
-            'number'=>$number
+            $number = Redis::smembers('online_set');
+            $msg = [
+                'code'=>1,
+                'client_id'=>$client_id,
+                'name'=>$name,
+                'count'=>$count,
+                'number'=>$number
             ];
             return json_encode($msg);
         }

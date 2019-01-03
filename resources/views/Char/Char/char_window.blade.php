@@ -150,6 +150,8 @@
         }
         function onclose(){
             console.log('连接关闭！');
+            //解绑UID
+            unbind();
             setTimeout(conn_socket,5000);//未连接重新发起请求
             return false;
             //请求接口解除绑定
@@ -164,7 +166,6 @@
             success:function(data){
                 console.log(data);
             }
-
         })
     }
     conn_socket();
